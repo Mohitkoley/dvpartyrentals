@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { Instagram, Facebook, } from '@mui/icons-material';
 import logo from "../../assets/images/logo.png"
 
-const Footer = ({ scrollToSection, aboutUsRef, servicesRef, homeIntroRef }) => {
+const Footer = () => {
   const navigate = useNavigate();
 
   return (
@@ -11,16 +11,10 @@ const Footer = ({ scrollToSection, aboutUsRef, servicesRef, homeIntroRef }) => {
       <div className="AboveLine w-full flex md:flex-row flex-col md:justify-between justify-center items-center mb-4 px-6">
         {/* Infolinks */}
         <div className="infolinks flex gap-6 flex-wrap md:mb-0 mb-4">
-          <span
-            className="cursor-pointer hover:underline"
-            onClick={() => scrollToSection(aboutUsRef)}
-          >
+          <span className="cursor-pointer hover:underline">
             About Us
           </span>
-          <span
-            className="cursor-pointer hover:underline"
-            onClick={() => scrollToSection(servicesRef)}
-          >
+          <span className="cursor-pointer hover:underline">
             Services
           </span>
           <span
@@ -32,10 +26,7 @@ const Footer = ({ scrollToSection, aboutUsRef, servicesRef, homeIntroRef }) => {
         </div>
 
         {/* Footer Logo */}
-        <span
-          className="FooterLogo font-lobster text-gradient text-4xl md:mr-6 cursor-pointer"
-          onClick={() => scrollToSection(homeIntroRef)}
-        >
+        <span className="FooterLogo font-lobster text-gradient text-4xl md:mr-6 cursor-pointer">
           <img src={logo} alt="Logo" className="logo w-20 h-12" />
         </span>
       </div>
@@ -68,15 +59,19 @@ const Footer = ({ scrollToSection, aboutUsRef, servicesRef, homeIntroRef }) => {
             className="cursor-pointer hover:underline"
             onClick={() => navigate('#')}
           >
-            <Instagram fontSize='large' className=' hover:text-pink-600'/>
+            <Instagram fontSize='large' className=' hover:text-pink-600' />
           </span>
           <span
             className="cursor-pointer hover:underline"
             onClick={() => navigate('#')}
           >
-            <Facebook fontSize='large' className='hover:text-sky-500'/>
+            <Facebook fontSize='large' className='hover:text-sky-500' />
           </span>
         </div>
+      </div>
+      {/* Copyright Text */}
+      <div className="copyright text-center text-gray-400 text-lg mt-4">
+        Copyright &copy; {new Date().getFullYear()} Dynamic Vibes - Party Rentals. All Rights Reserved
       </div>
     </section>
   );
