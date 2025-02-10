@@ -19,7 +19,7 @@ const Footer = () => {
           </span>
           <span
             className="cursor-pointer hover:underline"
-            onClick={() => navigate('#')}
+            onClick={()=>navigate('/request')}
           >
             Contact Us
           </span>
