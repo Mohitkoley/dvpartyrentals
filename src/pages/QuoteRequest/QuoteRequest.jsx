@@ -83,7 +83,7 @@ const QuoteRequest = () => {
         };
 
         try {
-            const response = await fetch('https://dynamicvibellc.com/api/v1/admin/party_rental', {
+            const response = await fetch('https://dynamicvibellc.com/api/v1/client/rental', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
