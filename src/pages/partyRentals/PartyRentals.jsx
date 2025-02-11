@@ -63,78 +63,74 @@ const PartyRentals = () => {
     }
   ];
 
-  console.log("Checking from PartyRentals");
-
   return (
     <div className='HomeContainer bg-custom-gradient-2 w-screen min-h-screen overflow-x-hidden'>
       <div>
         <Navbar />
       </div>
       <div className='text-center'>
-      <div className="Heading text-4xl md:text-6xl text-white font-semibold text-center block m-8">
-         <p><span className='text-gradient'>Long Island&apos;s,</span> Premier Tent & Event Rental Source</p>
+        <div className="Heading text-3xl sm:text-4xl md:text-6xl text-white font-semibold text-center block m-4 sm:m-8">
+          <p><span className='text-gradient'>Long Island&apos;s,</span> Premier Tent & Event Rental Source</p>
+        </div>
+        <div className="SubHeading text-sm text-white text-center block m-4 sm:m-6 px-4 sm:px-12 md:px-36">
+          <p style={{textAlign: "center"}}>
+            Long Island&apos;s Premier Tent & Event Rental Source offers a wide range of elegant tent styles and essential event items, ensuring a memorable experience for any occasion. They cater to various events, providing high-quality rentals and exceptional service to meet clients&apos; needs. The company specializes in providing comprehensive tent and event rental solutions, making it a go-to choice for clients in Long Island.
+          </p>
+        </div>
       </div>
-      <div className="SubHeading text-sm text-white text-center block m-6 px-36">
-        <p style={{textAlign: "center"}}>
-          Long Island&apos;s Premier Tent & Event Rental Source offers a wide range of elegant tent styles and essential event items, ensuring a memorable experience for any occasion. They cater to various events, providing high-quality rentals and exceptional service to meet clients&apos; needs. The company specializes in providing comprehensive tent and event rental solutions, making it a go-to choice for clients in Long Island.
-        </p>
 
-      </div>
-      </div>
       <div className="min-h-screen w-screen overflow-x-hidden bg-custom-gradient-2">
+        {/* Tent Styles Section */}
+        <div>
+          <TentPackages />
+        </div>
+        {/* As Seen On Section */}
+        <section className="py-8 sm:py-12 bg-custom-gradient-2">
+          <div className="container mx-auto px-4 sm:px-6">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white text-center mb-8 sm:mb-12">As seen on:</h2>
+            <div className="flex items-center justify-center gap-4 sm:gap-8 flex-wrap mt-4 sm:mt-8">
+              <div className="flex flex-wrap justify-center gap-4 sm:gap-8">
+                {asSeenOnLogos.map((logo, index) => (
+                  <img 
+                    key={index}
+                    src={logo}
+                    alt={`Featured publication ${index + 1}`}
+                    className="h-12 sm:h-16 w-auto object-contain grayscale hover:grayscale-0 transition duration-300"
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
 
-      {/* Tent Styles Section */}
-      <div>
-        <TentPackages />
-      </div>
-
-      {/* As Seen On Section */}
-      <section className="py-12 bg-custom-gradient-2">
-        <div className="container mx-auto px-6">
-        <h2 className="text-4xl font-bold text-white text-center mb-12">As seen on:</h2>
-          <div className="flex items-center justify-center gap-8 flex-wrap mt-8">
-            <div className="flex gap-8">
-              {asSeenOnLogos.map((logo, index) => (
-                <img 
-                  key={index}
-                  src={logo}
-                  alt={`Featured publication ${index + 1}`}
-                  className="h-16 w-auto object-contain grayscale hover:grayscale-0 transition duration-300"
-                />
+        {/* Event Essentials Gallery */}
+        <section className="py-12 sm:py-20 bg-custom-gradient-2">
+          <div className="container mx-auto px-4 sm:px-6">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white text-center mb-8 sm:mb-12">
+              Browse Our Must-Have Event Day Essentials
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
+              {eventEssentials.map((item, index) => (
+                <div key={index} className="relative group overflow-hidden rounded-lg">
+                  <img 
+                    src={item.image} 
+                    alt={item.title}
+                    className="w-full h-48 sm:h-64 object-cover transform group-hover:scale-110 transition duration-500"
+                  />
+                  <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                    <div className="text-center">
+                      <h3 className="text-white text-xl sm:text-2xl font-bold mb-2">{item.title}</h3>
+                      <button onClick={() => navigate(`${item.link}`)} className="text-white border border-white px-4 sm:px-6 py-2 rounded-full hover:bg-white hover:text-black transition">
+                        Read More
+                      </button>
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Event Essentials Gallery */}
-      <section className="py-20 bg-custom-gradient-2">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold text-white text-center mb-12">
-            Browse Our Must-Have Event Day Essentials
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {eventEssentials.map((item, index) => (
-              <div key={index} className="relative group overflow-hidden rounded-lg">
-                <img 
-                  src={item.image} 
-                  alt={item.title}
-                  className="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                  <div className="text-center">
-                    <h3 className="text-white text-2xl font-bold mb-2">{item.title}</h3>
-                    <button onClick={() => navigate(`${item.link}`)} className="text-white border border-white px-6 py-2 rounded-full hover:bg-white hover:text-black transition">
-                      Read More
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
       <div>
         <TestimonialSwiper />
       </div>
