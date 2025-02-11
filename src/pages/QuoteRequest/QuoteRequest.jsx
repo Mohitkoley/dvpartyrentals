@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Calendar, Users, Package, Tent, Table, Armchair, Lightbulb, Music, Wine } from 'lucide-react';
 import './quoteRequest.css';
 import Navbar from '../../components/PartyRentalsPage/Navbar';
+import { Toaster, toast } from 'react-hot-toast';
 
 const QuoteRequest = () => {
     const [formData, setFormData] = useState({
@@ -23,7 +24,6 @@ const QuoteRequest = () => {
         message: '',
     });
 
-    const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleChange = (e) => {
@@ -42,25 +42,41 @@ const QuoteRequest = () => {
     };
 
     const validate = () => {
-        const newErrors = {};
-        if (!formData.name) newErrors.name = 'Name is required';
-        if (!formData.email) newErrors.email = 'Email is required';
-        if (!formData.phone) newErrors.phone = 'Phone number is required';
-        if (!formData.location) newErrors.location = 'Location is required';
-        if (!formData.eventDate) newErrors.eventDate = 'Event date is required';
-        if (!formData.guests) newErrors.guests = 'Number of guests is required';
-        if (!formData.eventType) newErrors.eventType = 'Event type is required';
-        return newErrors;
+        const errors = [];
+        if (!formData.name) errors.push('Name is required');
+        if (!formData.email) errors.push('Email is required');
+        if (!formData.phone) errors.push('Phone number is required');
+        if (!formData.location) errors.push('Location is required');
+        if (!formData.eventDate) errors.push('Event date is required');
+        if (!formData.guests) errors.push('Number of guests is required');
+        if (!formData.eventType) errors.push('Event type is required');
+        
+        if (errors.length > 0) {
+            toast.error(
+                <div>
+                    <strong>Please fix the following errors:</strong>
+                    <ul className="list-disc pl-4 mt-1">
+                        {errors.map((error, index) => (
+                            <li key={index}>{error}</li>
+                        ))}
+                    </ul>
+                </div>,
+                {
+                    duration: 5000,
+                    position: 'top-center',
+                }
+            );
+            return false;
+        }
+        return true;
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const validationErrors = validate();
-        if (Object.keys(validationErrors).length > 0) {
-            setErrors(validationErrors);
+        if (!validate()) {
             return;
         }
-        setErrors({});
+        
         setIsSubmitting(true);
 
         const payload = {
@@ -95,8 +111,11 @@ const QuoteRequest = () => {
                 throw new Error('Network response was not ok');
             }
 
-            // Handle success (e.g., show a success message)
-            alert('Request submitted successfully!');
+            toast.success('Request submitted successfully!', {
+                duration: 4000,
+                position: 'top-center',
+            });
+
             setFormData({
                 name: '',
                 email: '',
@@ -115,9 +134,28 @@ const QuoteRequest = () => {
                 accessories: [],
                 message: '',
             });
+
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = false;
+            });
+
+            const radioButtons = document.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach(radio => {
+                radio.checked = false;
+            });
+
+            const selectElements = document.querySelectorAll('select');
+            selectElements.forEach(select => {
+                select.value = '';
+            });
+
         } catch (error) {
             console.error('Error submitting form:', error);
-            alert('There was an error submitting your request. Please try again later.');
+            toast.error('There was an error submitting your request. Please try again later.', {
+                duration: 4000,
+                position: 'top-center',
+            });
         } finally {
             setIsSubmitting(false);
         }
@@ -126,6 +164,7 @@ const QuoteRequest = () => {
     return (
         <>
             <div className='HomeContainer bg-custom-gradient-2 w-screen min-h-screen overflow-x-hidden'>
+                <Toaster />
                 <div>
                     <Navbar />
                 </div>
@@ -151,9 +190,8 @@ const QuoteRequest = () => {
                                         onChange={handleChange}
                                         placeholder="Enter your name"
                                         required
-                                        className={`block w-full px-4 py-3 rounded-lg border ${errors.name ? 'border-red-500' : 'border-gray-300'} shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all`}
+                                        className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
                                     />
-                                    {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
                                 </div>
 
                                 {/* Email and Phone Fields */}
@@ -172,9 +210,8 @@ const QuoteRequest = () => {
                                             onChange={handleChange}
                                             placeholder="Enter your email"
                                             required
-                                            className={`block w-full px-4 py-3 rounded-lg border ${errors.email ? 'border-red-500' : 'border-gray-300'} shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all`}
+                                            className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
                                         />
-                                        {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
                                     </div>
                                     <div className="relative">
                                         <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
@@ -190,9 +227,8 @@ const QuoteRequest = () => {
                                             onChange={handleChange}
                                             placeholder="Enter your phone number"
                                             required
-                                            className={`block w-full px-4 py-3 rounded-lg border ${errors.phone ? 'border-red-500' : 'border-gray-300'} shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all`}
+                                            className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
                                         />
-                                        {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
                                     </div>
                                 </div>
 
@@ -212,9 +248,8 @@ const QuoteRequest = () => {
                                             onChange={handleChange}
                                             placeholder="Enter your location"
                                             required
-                                            className={`block w-full px-4 py-3 rounded-lg border ${errors.location ? 'border-red-500' : 'border-gray-300'} shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all`}
+                                            className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
                                         />
-                                        {errors.location && <p className="text-red-500 text-sm">{errors.location}</p>}
                                     </div>
                                     <div className="relative">
                                         <label htmlFor="eventDate" className="block text-sm font-medium text-gray-700 mb-1">
@@ -230,9 +265,8 @@ const QuoteRequest = () => {
                                             onChange={handleChange}
                                             required
                                             min={new Date().toISOString().split('T')[0]}
-                                            className={`block w-full px-4 py-3 rounded-lg border ${errors.eventDate ? 'border-red-500' : 'border-gray-300'} shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all`}
+                                            className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
                                         />
-                                        {errors.eventDate && <p className="text-red-500 text-sm">{errors.eventDate}</p>}
                                     </div>
                                 </div>
 
@@ -252,9 +286,8 @@ const QuoteRequest = () => {
                                             onChange={handleChange}
                                             placeholder="Enter number of guests"
                                             required
-                                            className={`block w-full px-4 py-3 rounded-lg border ${errors.guests ? 'border-red-500' : 'border-gray-300'} shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all`}
+                                            className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
                                         />
-                                        {errors.guests && <p className="text-red-500 text-sm">{errors.guests}</p>}
                                     </div>
                                     <div className="relative">
                                         <label htmlFor="eventType" className="block text-sm font-medium text-gray-700 mb-1">Event Type</label>
@@ -264,7 +297,7 @@ const QuoteRequest = () => {
                                             value={formData.eventType}
                                             onChange={handleChange}
                                             required
-                                            className={`block w-full px-4 py-3 rounded-lg border ${errors.eventType ? 'border-red-500' : 'border-gray-300'} shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all appearance-none bg-white`}
+                                            className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all appearance-none bg-white"
                                         >
                                             <option value="">Select An Event</option>
                                             <option value="graduation">Graduation</option>
@@ -282,7 +315,6 @@ const QuoteRequest = () => {
                                             <option value="corporate">Corporate</option>
                                             <option value="other">Others</option>
                                         </select>
-                                        {errors.eventType && <p className="text-red-500 text-sm">{errors.eventType}</p>}
                                     </div>
                                 </div>
 
