@@ -33,15 +33,13 @@ const Navbar = () => {
   return (
     <>
       <section className="flex flex-col items-center">
-        {/* Logo Section */}
-        <div
-          ref={logoRef}
-          className="w-full h-1/5 text-white flex flex-col justify-center items-center gap-2 mb-8 sm:mb-16 mt-6 sm:mt-10"
-        >
-          <img src={logo} alt="Logo" className="logo w-32 h-24 sm:w-40 sm:h-32" />
-        </div>
-
-        {/* Mobile Menu Button */}
+          <div
+            ref={logoRef}
+            className="w-full h-1/5 text-white flex flex-col justify-center items-center gap-2 mb-8 sm:mb-16 mt-6 sm:mt-10"
+          >
+            <img src={logo} alt="Logo" className="logo w-36 h-32 sm:w-80 sm:h-64" />
+          </div>
+          {/* Mobile Menu Button */}
         <button 
           className="lg:hidden fixed top-4 right-4 z-50 text-white p-2 rounded-md"
           onClick={() => setIsMenuOpen(!isMenuOpen)}

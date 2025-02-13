@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Instagram, Facebook, } from '@mui/icons-material';
+// import { Instagram, Facebook, } from '@mui/icons-material';
 import logo from "../../assets/images/logo.png"
 
 const Footer = () => {
@@ -11,10 +11,10 @@ const Footer = () => {
       <div className="AboveLine w-full flex md:flex-row flex-col md:justify-between justify-center items-center mb-4 px-6">
         {/* Infolinks */}
         <div className="infolinks flex gap-6 flex-wrap md:mb-0 mb-4">
-          <span className="cursor-pointer hover:underline">
+          <span className="cursor-pointer hover:underline" onClick={()=>navigate('/aboutus')}>
             About Us
           </span>
-          <span className="cursor-pointer hover:underline">
+          <span className="cursor-pointer hover:underline" onClick={()=>navigate('/whiteframetents')}>
             Services
           </span>
           <span
@@ -27,7 +27,7 @@ const Footer = () => {
 
         {/* Footer Logo */}
         <span className="FooterLogo font-lobster text-gradient text-4xl md:mr-6 cursor-pointer">
-          <img src={logo} alt="Logo" className="logo w-20 h-12" />
+          <img src={logo} alt="Logo" className="logo w-[120px] h-[75px]" />
         </span>
       </div>
 
@@ -38,7 +38,7 @@ const Footer = () => {
       <div className="belowline w-full flex md:justify-between justify-center flex-wrap items-center mt-4 px-6">
         {/* Left Section */}
         <div className="left-section flex gap-6 flex-wrap md:mb-0 mb-4">
-          <span className="cursor-pointer hover:underline">Email</span>
+          {/* <span className="cursor-pointer hover:underline">Email</span>
           <span
             className="cursor-pointer hover:underline"
             onClick={() => navigate('#')}
@@ -50,12 +50,12 @@ const Footer = () => {
             onClick={() => navigate('#')}
           >
             Terms of Service
-          </span>
+          </span> */}
         </div>
 
         {/* Right Section */}
         <div className="right-section flex gap-4 flex-wrap md:mr-6">
-          <span
+          {/* <span
             className="cursor-pointer hover:underline"
             onClick={() => navigate('#')}
           >
@@ -66,7 +66,7 @@ const Footer = () => {
             onClick={() => navigate('#')}
           >
             <Facebook fontSize='large' className='hover:text-sky-500' />
-          </span>
+          </span> */}
         </div>
       </div>
       {/* Copyright Text */}
