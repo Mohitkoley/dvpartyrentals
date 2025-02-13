@@ -37,7 +37,7 @@ const Navbar = () => {
             ref={logoRef}
             className="w-full h-1/5 text-white flex flex-col justify-center items-center gap-2 mb-8 sm:mb-16 mt-6 sm:mt-10"
           >
-            <img src={logo} alt="Logo" className="logo w-36 h-32 sm:w-80 sm:h-64" />
+            <img src={logo} alt="Logo" className="logo w-36 h-32 sm:w-80 sm:h-[13rem]" />
           </div>
           {/* Mobile Menu Button */}
         <button 
